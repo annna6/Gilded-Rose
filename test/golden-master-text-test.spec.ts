@@ -17,6 +17,7 @@ describe('updateQuality() Test', function (): void {
         roseItems.push(new Item("Aged Brie", 0, 0));
         roseItems.push(new Item("Aged Brie", 12, -5));
         roseItems.push(new Item("Aged Brie", 4, 8));
+        roseItems.push(new Item("Aged Brie", -30, 8));
         roseItems.push(new Item("Backstage passes to a TAFKAL80ETC concert", 20, 10));
         roseItems.push(new Item("Backstage passes to a TAFKAL80ETC concert", 6, 20));
         roseItems.push(new Item("Backstage passes to a TAFKAL80ETC concert", 11, -7));
@@ -31,11 +32,14 @@ describe('updateQuality() Test', function (): void {
 
         const updatedItems: Item[] = gildedRose.updateQuality();
 
+        console.log(updatedItems);
+
         const referenceItems: Item[] = [];
 
         referenceItems.push(new Item("Aged Brie", -1, 2));
         referenceItems.push(new Item("Aged Brie", 11, -4));
         referenceItems.push(new Item("Aged Brie", 3, 9));
+        referenceItems.push(new Item("Aged Brie", -31, 10));
         referenceItems.push(new Item('Backstage passes to a TAFKAL80ETC concert', 19, 11));
         referenceItems.push(new Item('Backstage passes to a TAFKAL80ETC concert', 5, 22));
         referenceItems.push(new Item('Backstage passes to a TAFKAL80ETC concert', 10, -6));
