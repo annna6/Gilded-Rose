@@ -209,4 +209,29 @@ describe('updateQuality() Test', function (): void {
 
         assert.deepEqual(updatedItems, referenceItems);
     });
+
+    it("Conjured items degrade in quality twice as fast as normal items", function() : void {
+        const roseItems: Item[] = [];
+
+        roseItems.push(new Item("Conjured", 3, 10));
+        roseItems.push(new Item("Conjured", -2, 30));
+        roseItems.push(new Item("Conjured", 7, 5));
+        roseItems.push(new Item("Conjured", 3, 2));
+
+        const gildedRose : GildedRose = new GildedRose(roseItems);
+
+        let updatedItems: Item[] = gildedRose.updateQuality();
+        updatedItems = (new GildedRose(updatedItems)).updateQuality();
+        updatedItems = (new GildedRose(updatedItems)).updateQuality();
+        updatedItems = (new GildedRose(updatedItems)).updateQuality();
+
+        const referenceItems: Item[] = [];
+
+        referenceItems.push(new Item("Conjured", -1, 0));
+        referenceItems.push(new Item("Conjured", -6, 14));
+        referenceItems.push(new Item("Conjured", 3, 0));
+        referenceItems.push(new Item("Conjured", -1, 0));
+
+        assert.deepEqual(referenceItems, updatedItems);
+    });
 });

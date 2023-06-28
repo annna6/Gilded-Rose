@@ -17,8 +17,11 @@ function increaseQuality(item : Item) : void {
 }
 
 function decrementQuality(item : Item) : void {
-    if (item.quality > 0) {
-        item.quality -= 1;
+    if (item.sellIn < 0) {
+        item.quality = Math.max(item.quality - 1, 0);
+        item.quality = Math.max(item.quality - 1, 0);
+    } else {
+        item.quality = Math.max(item.quality - 1, 0);
     }
 }
 
@@ -30,7 +33,7 @@ export class GildedRose {
     }
 
     updateQuality() : Item[] {
-        const keywords : string[] = ['Aged Brie', 'Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros'];
+        const keywords : string[] = ['Aged Brie', 'Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros', 'Conjured'];
 
         this.items.forEach((item : Item) : void => {
             if (item.name === keywords[2]) {
@@ -41,7 +44,7 @@ export class GildedRose {
 
             if (!keywords.slice(0, 2).includes(item.name)) {
                 decrementQuality(item);
-                if (item.sellIn < 0) {
+                if (item.name === keywords[3]) {
                     decrementQuality(item);
                 }
             } else {
