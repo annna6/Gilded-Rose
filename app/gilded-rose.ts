@@ -37,22 +37,18 @@ export class GildedRose {
             } else {
                 if (item.quality < 50) {
                     item.quality += 1;
-                    switch (item.name) {
-                        case keywords[0]: {
+                    if (item.name == keywords[1]) {
+                        if (item.sellIn < 10) {
                             item.quality += 1;
-                            break;
                         }
-                        case keywords[1]: {
-                            if (item.sellIn < 10) {
-                                item.quality += 1;
-                            }
-                            if (item.sellIn < 5 && item.quality < 50) {
-                                item.quality += 1;
-                            }
-                            if (item.sellIn < 0) {
-                                item.quality = 0;
-                            }
+                        if (item.sellIn < 5 && item.quality < 50) {
+                            item.quality += 1;
                         }
+                        if (item.sellIn < 0) {
+                            item.quality = 0;
+                        }
+                    } else if (item.sellIn < 0) {
+                        item.quality += 1;
                     }
                 }
             }
@@ -62,8 +58,8 @@ export class GildedRose {
     }
 }
 
-
 /*
+
 export class GildedRose {
     items: Array<Item>;
 
