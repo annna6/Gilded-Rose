@@ -18,52 +18,46 @@ export class GildedRose {
     }
 
     updateQuality() : Item[] {
-        const keywords : string[] = [];
-        keywords.push('Aged Brie');
-        keywords.push('Backstage passes to a TAFKAL80ETC concert');
-        keywords.push('Sulfuras, Hand of Ragnaros');
-        for (let i : number = 0; i < this.items.length; i++) {
-            const itemName: string = this.items[i].name;
-            if (itemName === keywords[2]) {
-                continue;
+        const keywords : string[] = ['Aged Brie', 'Backstage passes to a TAFKAL80ETC concert', 'Sulfuras, Hand of Ragnaros'];
+
+        this.items.forEach((item : Item) : void => {
+            if (item.name === keywords[2]) {
+                return;
             }
 
-            if (!keywords.slice(0, 2).includes(itemName)) {
-                if (this.items[i].quality > 0) {
-                    this.items[i].quality -= 1;
-                    if (this.items[i].sellIn < 0) {
-                        this.items[i].quality -= 1;
+            item.sellIn -= 1;
+
+            if (!keywords.slice(0, 2).includes(item.name)) {
+                if (item.quality > 0) {
+                    item.quality -= 1;
+                    if (item.sellIn < 0) {
+                        item.quality -= 1;
                     }
                 }
             } else {
-                if (this.items[i].quality < 50) {
-                    this.items[i].quality = this.items[i].quality + 1
-                    if (itemName == keywords[1]) {
-                        if (this.items[i].sellIn < 11) {
-                            if (this.items[i].quality < 50) {
-                                this.items[i].quality = this.items[i].quality + 1
-                            }
-
+                if (item.quality < 50) {
+                    item.quality += 1;
+                    switch (item.name) {
+                        case keywords[0]: {
+                            item.quality += 1;
+                            break;
                         }
-                        if (this.items[i].sellIn < 6) {
-                            if (this.items[i].quality < 50) {
-                                this.items[i].quality = this.items[i].quality + 1
+                        case keywords[1]: {
+                            if (item.sellIn < 10) {
+                                item.quality += 1;
+                            }
+                            if (item.sellIn < 5 && item.quality < 50) {
+                                item.quality += 1;
+                            }
+                            if (item.sellIn < 0) {
+                                item.quality = 0;
                             }
                         }
                     }
                 }
             }
+        });
 
-            this.items[i].sellIn = this.items[i].sellIn - 1;
-
-            if (this.items[i].sellIn < 0) {
-                if (itemName === keywords[1]) {
-                    this.items[i].quality = this.items[i].quality - this.items[i].quality;
-                } else if (itemName === keywords[0] && this.items[i].quality < 50) {
-                    this.items[i].quality += 1;
-                }
-            }
-        }
         return this.items;
     }
 }

@@ -3,15 +3,7 @@ import {assert, expect} from "chai";
 
 describe('updateQuality() Test', function (): void {
 
-    it('updates Gilded Rose items correctly', function() : void {
-
-        /*
-        sellin: 6, 15
-*/
-        /*
-                quality : 0, ..
-        */
-
+    it('updates Gilded Rose items correctly - one iteration', function() : void {
         const roseItems: Item[] = [];
 
         roseItems.push(new Item("Aged Brie", 0, 0));
@@ -52,4 +44,6 @@ describe('updateQuality() Test', function (): void {
 
         assert.deepEqual(updatedItems, referenceItems);
     });
+
+    it('updates Gilded Rose items correctly - three iterations')
 });
