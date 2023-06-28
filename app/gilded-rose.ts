@@ -13,19 +13,26 @@ export class Item {
 export class GildedRose {
     items: Array<Item>;
 
-    constructor(items = [] as Array<Item>) {
+    constructor(items : Item[] = [] as Array<Item>) {
         this.items = items;
     }
 
-    updateQuality() {
-        for (let i = 0; i < this.items.length; i++) {
-            if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+    updateQuality() : Item[] {
+        const keywords : string[] = [];
+        keywords.push('Aged Brie');
+        keywords.push('Backstage passes to a TAFKAL80ETC concert');
+        keywords.push('Sulfuras, Hand of Ragnaros');
+        for (let i : number = 0; i < this.items.length; i++) {
+            const itemName : string = this.items[i].name;
+            if (itemName === keywords[2]) {
+                continue;
+            }
+            if (!keywords.slice(0, 2).includes(itemName)) {
                 if (this.items[i].quality > 0) {
-                    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                        this.items[i].quality = this.items[i].quality - 1
-                    }
+                    this.items[i].quality -= 1;
                 }
-            } else {
+            }
+            else {
                 if (this.items[i].quality < 50) {
                     this.items[i].quality = this.items[i].quality + 1
                     if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
