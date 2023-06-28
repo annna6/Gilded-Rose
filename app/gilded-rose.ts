@@ -10,6 +10,18 @@ export class Item {
     }
 }
 
+function increaseQuality(item : Item) : void {
+    if (item.quality < 50) {
+        item.quality += 1;
+    }
+}
+
+function decrementQuality(item : Item) : void {
+    if (item.quality > 0) {
+        item.quality -= 1;
+    }
+}
+
 export class GildedRose {
     items: Array<Item>;
 
@@ -28,28 +40,24 @@ export class GildedRose {
             item.sellIn -= 1;
 
             if (!keywords.slice(0, 2).includes(item.name)) {
-                if (item.quality > 0) {
-                    item.quality -= 1;
-                    if (item.sellIn < 0) {
-                        item.quality -= 1;
-                    }
+                decrementQuality(item);
+                if (item.sellIn < 0) {
+                    decrementQuality(item);
                 }
             } else {
-                if (item.quality < 50) {
-                    item.quality += 1;
-                    if (item.name == keywords[1]) {
-                        if (item.sellIn < 10) {
-                            item.quality += 1;
-                        }
-                        if (item.sellIn < 5 && item.quality < 50) {
-                            item.quality += 1;
-                        }
-                        if (item.sellIn < 0) {
-                            item.quality = 0;
-                        }
-                    } else if (item.sellIn < 0) {
-                        item.quality += 1;
+                increaseQuality(item);
+                if (item.name == keywords[1]) {
+                    if (item.sellIn < 10) {
+                        increaseQuality(item);
                     }
+                    if (item.sellIn < 5) {
+                        increaseQuality(item);
+                    }
+                    if (item.sellIn < 0) {
+                        item.quality = 0;
+                    }
+                } else if (item.sellIn < 0) {
+                    increaseQuality(item);
                 }
             }
         });
@@ -57,7 +65,6 @@ export class GildedRose {
         return this.items;
     }
 }
-
 /*
 
 export class GildedRose {
