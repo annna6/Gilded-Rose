@@ -3,7 +3,7 @@ import {assert, expect} from "chai";
 
 describe('updateQuality() Test', function (): void {
 
-    it('updates Gilded Rose items correctly - one iteration', function() : void {
+    it('updates all Gilded Rose items correctly - one iteration', function() : void {
         const roseItems: Item[] = [];
 
         roseItems.push(new Item("Aged Brie", 0, 0));
@@ -43,7 +43,7 @@ describe('updateQuality() Test', function (): void {
         assert.deepEqual(updatedItems, referenceItems);
     });
 
-    it('updates Gilded Rose items correctly - three iterations', function() : void {
+    it('updates all Gilded Rose items correctly - three iterations', function() : void {
         const roseItems: Item[] = [];
 
         roseItems.push(new Item("Aged Brie", -4, 60));
@@ -62,7 +62,7 @@ describe('updateQuality() Test', function (): void {
 
         const gildedRose : GildedRose = new GildedRose(roseItems);
 
-        let updatedItems: Item[] = gildedRose.updateQuality()
+        let updatedItems: Item[] = gildedRose.updateQuality();
         updatedItems = (new GildedRose(updatedItems)).updateQuality();
         updatedItems = (new GildedRose(updatedItems)).updateQuality();
 
@@ -83,6 +83,43 @@ describe('updateQuality() Test', function (): void {
         referenceItems.push(new Item('other1', 5, 37));
         referenceItems.push(new Item('other2', -8, -20));
         referenceItems.push(new Item('other3', 17, 97));
+
+        assert.deepEqual(updatedItems, referenceItems);
+    });
+
+    it('updates Aged Brie properly', function() : void {
+        const roseItems: Item[] = [];
+
+        roseItems.push(new Item("Aged Brie", -4, -50));
+        roseItems.push(new Item("Aged Brie", 0, 0));
+        roseItems.push(new Item("Aged Brie", -3, 51));
+        roseItems.push(new Item("Aged Brie", 5, 12));
+        roseItems.push(new Item("Aged Brie", 11, 7));
+        roseItems.push(new Item("Aged Brie", 6, 100));
+        roseItems.push(new Item("Aged Brie", 14, 80));
+        roseItems.push(new Item("Aged Brie", 20, -40));
+        roseItems.push(new Item("Aged Brie", 50, 0));
+        roseItems.push(new Item("Aged Brie", 100, -30));
+
+        const gildedRose : GildedRose = new GildedRose(roseItems);
+
+        let updatedItems: Item[] = gildedRose.updateQuality();
+
+        console.log(updatedItems);
+
+        const referenceItems: Item[] = [];
+
+        referenceItems.push(new Item("Aged Brie", -5, -48));
+        referenceItems.push(new Item("Aged Brie", -1, 2));
+        referenceItems.push(new Item("Aged Brie", -4, 51));
+        referenceItems.push(new Item("Aged Brie", 4, 13));
+        referenceItems.push(new Item("Aged Brie", 10, 8));
+        referenceItems.push(new Item("Aged Brie", 5, 100));
+        referenceItems.push(new Item("Aged Brie", 13, 80));
+        referenceItems.push(new Item("Aged Brie", 19, -39));
+        referenceItems.push(new Item("Aged Brie", 49, 1));
+        referenceItems.push(new Item("Aged Brie", 99, -29));
+
 
         assert.deepEqual(updatedItems, referenceItems);
     });
